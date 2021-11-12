@@ -85,6 +85,21 @@ def add_customer():
     # Clear the fields
     clear_fields()
 
+#  List Customers
+def list_customers():
+    list_customers_query = Tk()
+    list_customers_query.title("List All Customers")
+    list_customers_query.geometry("800x600")
+    # Query The Database
+    my_cursor.execute("SELECT * FROM customers")
+    result = my_cursor.fetchall()
+    for index, x in enumerate(result):
+        num=0
+        for y in x:
+            lookup_label = Label(list_customers_query, text=y)
+            lookup_label.grid(row=index , column=num)
+            num +=1
+
 
 
 # Create a Label
@@ -151,11 +166,11 @@ add_customer_button = Button(root, text="Add Customer To Database", command=add_
 add_customer_button.grid(row=14, column=0, padx=10, pady=10)
 clear_field_button = Button(root, text="Clear Fields", command=clear_fields)
 clear_field_button.grid(row=14, column=1)
+#  List Customers button
+list_customers_button = Button(root, text="List Customer", command=list_customers)
+list_customers_button.grid(row=15, column=0, sticky=W, padx=10)
 
-my_cursor.execute("SELECT * FROM customers")
-result = my_cursor.fetchall()
-for x in result:
-    print(x)
+
 
 
 root.mainloop()
